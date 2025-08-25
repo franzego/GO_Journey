@@ -17,6 +17,13 @@ type User struct {
 	Albums []Album
 }
 
+// struct for oauth data
+type Oauthdata struct {
+	Twitter string `json:"twitter"`
+	Github  string `json:"github"`
+	Google  string `json:"google"`
+}
+
 // struct for the response to a successful signup
 type SignupResponse struct {
 	Email string `json:"email"`

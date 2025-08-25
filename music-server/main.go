@@ -15,15 +15,18 @@ import (
 
 //The initializers simply run before the main function. See them as requirements for smooth sailing of the main function
 
-func init() {
-	initializers.Connectiontodb()
-	initializers.Syncdbandmodels()
-}
+//func init() {
+
+//initializers.Syncdbandmodels()
+//}
 
 func main() {
 	//routers.RouterFunc()
 	//rou := mux.NewRouter() //main router with gorilla mux
 	routers.RouterFunc()
+
+	initializers.Connectiontodb()
+	initializers.Syncdbandmodels()
 
 	s := &http.Server{
 		Addr:           ":8080",

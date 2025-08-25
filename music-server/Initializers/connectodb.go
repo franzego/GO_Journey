@@ -1,8 +1,11 @@
 package initializers
 
 import (
+	"fmt"
+	"log"
 	"os"
 
+	"github.com/lpernett/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -13,12 +16,20 @@ import (
 var DB *gorm.DB
 
 func Connectiontodb() {
-	var err error
 
-	dsn := os.Getenv("DB")
+	err := godotenv.Load()
+	if err != nil {
+		log.Println("No .env file found, falling back to system environment")
+		return
+	}
+	//var err error
+	// Load .env file
+	dsn := os.Getenv("DATABASE_URL")
+	fmt.Println("Attempting to connect with DSN:", dsn)
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		panic("Failed to create database")
+		panic("Failed to connect to database: " + err.Error())
 	}
+	//DB = db
 }
